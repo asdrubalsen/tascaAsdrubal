@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>¡Bienvenido a la página de inicio!</h1>
+    <div>
+        <a href="{{ url_for('getmail') }}"><button>Obtener correo</button></a> <!-- hay que especificar el NOMBRE DE LA FUNCION Y NO LA URL, lo que pasa es que se llaman igual -->
+        <a href="{{ url_for('addmail') }}"><button>Añadir correo</button></a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+==== code start ====
+import paramiko
+
+# Comando a ejecutar en la máquina remota
+command = "df"
+
+# Detalles de la máquina remota
+host = "192.168.56.17"  # IP de la máquina server
+username = "box"
+password = ""
+
+# Crear una instancia del cliente SSH
+client = paramiko.client.SSHClient()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+# Conectar al servidor remoto
+client.connect(host, username=username, password=password)
+
+# Ejecutar el comando en la máquina remota
+_stdin, _stdout, _stderr = client.exec_command(command)
+
+# Imprimir la salida del comando
+print(_stdout.read().decode())
+
+# Cerrar la conexión SSH
+client.close()
+
+==== code end =======
+
+despues en la terminal expicame que hace este comando :
+box@client:~$ /bin/python3 /home/box/main.py
