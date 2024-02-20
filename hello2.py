@@ -27,9 +27,9 @@ def dashboard(name):
 
     if resultado:
         correo = resultado[0]
-        return '¡Bienvenido ' + name + '!, Tu correo electrónico es: %s' % correo
+        return render_template('encontrado.html', name=name, correo=correo)
     else:
-        return 'Usuario no encontrado'
+        return render_template('notfound.html', name=name)
 
 @app.route('/getmail', methods=['POST', 'GET'])
 def getmail():

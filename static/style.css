@@ -1,1 +1,17 @@
-body {background-color: aquamarine;}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center; /* Centro el texto dentro del body */
+}
+
+h1 {
+    color: #333;
+}
+
+div {
+    margin-top: 20px; /* Agrego un margen superior al div para separarlo del h1 */
+}
+
+button {
+    margin: 10px; /* Agrego un margen a los botones */
+}
