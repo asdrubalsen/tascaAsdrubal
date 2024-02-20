@@ -1,44 +1,33 @@
 from flask import Flask, render_template, request, redirect, url_for
+import mysql.connector
 
 app = Flask(__name__)
 
-# Lista que asocia nombres de usuario con correos electrónicos
-usuarios_correos = {"Mercedes" :	"mcast386@xtec.cat",
-"Rayane":	"rayane@rayane.sa",
-"Mohamed":	"moha@gmail.com",
-"Jad":	"jad@gmail.com",
-"Oriol":	"joam@gmail.com",
-"Elias":	"hola123@gmail.com",
-"Armau":	"arnau@gmail.com",
-"Asdrúbal":	"asdrubal@gmail.com",
-"Adrian":	"pedrosanchez@asix2.com",
-"Eric": 	"eric@gmail.com",
-"Emma":	"pacosanz@gmail.com",
-"nishwan2":	"nishwan@gmail.com",
-"Javi":	"javi@gmail.com",
-"Novel":	"novelferreras49@gmail.com",
-"Bruno":	"elcigala@gmail.com",
-"David":	"argentino@gmail.com",
-"Judit":	"judit@gmail.com",
-"Joao":	"joao@gmail.com",
-"Laura":	"laura@gmail.com",
-"enrico":	"123@gmail.com",
-"Joel":	"joelcobre@gmail.com",
-"Aaron":	"aaron@gmail.com",
-"Moad":	"moad@gmail.com",
-"peruano":	"peru@gmail.com"}
+# Establecer la conexión a la base de datos
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="Asdrúbal",
+    password="Admin22.",
+    database="listacorreo"
+)
+
+# Crear el cursor
+cursor = conexion.cursor()
 
 @app.route('/')
 def home():
-    #pagina inicial
+    # Página inicial
     return render_template('home.html')
 
 @app.route('/dashboard/<name>')
 def dashboard(name):
-    # Verificar si el nombre de usuario existe en la lista
-    if name in usuarios_correos:
-        correo = usuarios_correos[name]
-        return '¡Bienvenido '  + name + '!, Tu correo electrónico es: %s' % correo
+    # Consultar el correo electrónico del usuario
+    cursor.execute("SELECT Correo FROM alumnos WHERE Nombre = %s", (name,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        correo = resultado[0]
+        return '¡Bienvenido ' + name + '!, Tu correo electrónico es: %s' % correo
     else:
         return 'Usuario no encontrado'
 
@@ -55,10 +44,11 @@ def getmail():
 def addmail():
     if request.method == 'POST':
         user = request.form['name']
-        email = request.form['email']
+        Correo = request.form['email']
 
-        # Actualizar la lista usuarios_correos con los nuevos datos
-        usuarios_correos.update({user: email})
+        # Insertar nuevo usuario en la base de datos
+        cursor.execute("INSERT INTO alumnos (Nombre, Correo) VALUES (%s, %s)", (user, Correo))
+        conexion.commit()
 
         return redirect(url_for('dashboard', name=user))
     else:
@@ -66,3 +56,7 @@ def addmail():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# Cerrar cursor y conexión al finalizar
+cursor.close()
+conexion.close()
