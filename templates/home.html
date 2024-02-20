@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
 </head>
 <body>
+    <a href="{{ url_for('login_page') }}"><button class="login-button">Login</button></a>
     <h1>¡Bienvenido a la página de inicio!</h1>
     <div>
         <a href="{{ url_for('getmail') }}"><button>Obtener correo</button></a> <!-- hay que especificar el NOMBRE DE LA FUNCION Y NO LA URL, lo que pasa es que se llaman igual -->

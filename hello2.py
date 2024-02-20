@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 import mysql.connector
 
 app = Flask(__name__)
@@ -19,17 +19,45 @@ def home():
     # Página inicial
     return render_template('home.html')
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        # Obtener los datos del formulario de inicio de sesión
+        user = request.form['username']
+        password = request.form['password']
+
+        # Verificar si el usuario y la contraseña son correctos consultando la base de datos
+        cursor.execute("SELECT Nombre FROM alumnos WHERE Nombre = %s AND Contraseña = %s", (user, password))
+        resultado = cursor.fetchone()
+
+        if resultado:
+            # Si el usuario y la contraseña son correctos, establecer una cookie de sesión
+            respuesta = make_response(redirect(url_for('dashboard', name=user)))
+            respuesta.set_cookie('username', user)
+            return respuesta
+        else:
+            # Si el usuario y la contraseña no son correctos, redirigir de nuevo a la página de inicio de sesión con un mensaje de error
+            return render_template('home.html', error="Usuario o contraseña incorrectos")
+    else:
+        return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    # Eliminar la cookie de sesión y redirigir a la página de inicio
+    respuesta = make_response(redirect(url_for('home')))
+    respuesta.set_cookie('username', '', expires=0)
+    return respuesta
+
 @app.route('/dashboard/<name>')
 def dashboard(name):
-    # Consultar el correo electrónico del usuario
-    cursor.execute("SELECT Correo FROM alumnos WHERE Nombre = %s", (name,))
-    resultado = cursor.fetchone()
-
-    if resultado:
-        correo = resultado[0]
-        return render_template('encontrado.html', name=name, correo=correo)
+    # Verificar si el usuario está autenticado utilizando la cookie de sesión
+    username = request.cookies.get('username')
+    if username == name:
+        # Usuario autenticado, mostrar el dashboard
+        return render_template('dashboard.html', name=name)
     else:
-        return render_template('notfound.html', name=name)
+        # Usuario no autenticado, redirigir a la página de inicio
+        return redirect(url_for('home'))
 
 @app.route('/getmail', methods=['POST', 'GET'])
 def getmail():
@@ -38,7 +66,7 @@ def getmail():
         return redirect(url_for('dashboard', name=user))
     else:
         user = request.args.get('name')
-        return render_template('login.html')
+        return render_template('getmail.html')
 
 @app.route('/addmail', methods=['GET', 'POST'])
 def addmail():

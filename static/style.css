@@ -15,3 +15,18 @@ div {
 button {
     margin: 10px; /* Agrego un margen a los botones */
 }
+
+.login-button {
+    position: absolute; /* Posiciona el botón de forma absoluta */
+    top: 10px; /* Alinea el botón 10px desde la parte superior */
+    right: 10px; /* Alinea el botón 10px desde la derecha */
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: white; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Añade espacio alrededor del texto */
+    text-align: center; /* Centro el texto horizontalmente */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Hace que el botón se comporte como un elemento en línea */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar por encima del botón */
+}
