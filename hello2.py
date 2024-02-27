@@ -54,7 +54,7 @@ def dashboard(name):
     username = request.cookies.get('username')
     if username == name:
         # Usuario autenticado, mostrar el dashboard
-        return render_template('dashboard.html', name=name)
+        return render_template('logeado.html', name=name)
     else:
         # Usuario no autenticado, redirigir a la página de inicio
         return redirect(url_for('home'))

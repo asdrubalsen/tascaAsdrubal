@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <title>Tu Página Web</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+         a {
+            color: rgb(254, 245, 247); /* Color del texto blanco */
+            text-decoration: none; /* Sin subrayado */
+        }
+    </style>
 </head>
 <body>
-    <a href="{{ url_for('login_page') }}"><button class="login-button">Login</button></a>
-    <h1>¡Bienvenido a la página de inicio!</h1>
-    <div>
-        <a href="{{ url_for('getmail') }}"><button>Obtener correo</button></a> <!-- hay que especificar el NOMBRE DE LA FUNCION Y NO LA URL, lo que pasa es que se llaman igual -->
-        <a href="{{ url_for('addmail') }}"><button>Añadir correo</button></a>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='imagen1.png') }}" alt="Imagen 1">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="registro">Regístrese</a></li>
+                <a>o bien</a>
+                <li><a href="{{ url_for('login') }}" class="registro">Iniciar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="titulo">
+        <h1>Página de Inicio</h1>
     </div>
 </body>
 </html>
