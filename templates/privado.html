@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Asdrúbal</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Mi Aplicación</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <form action="/" method="get">
+                    <button type="submit">Cerrar Sesión</button>
+                </form>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Inversión de prioridades</h2>
+        <p><img src="/static/imagenes/Priority_Inversion.png" alt="" /></p>
+        <p>La inversión de prioridades es un caso problemático en la planificación de tareas. Se da cuando dos tareas de distinta prioridad comparten un recurso y la tarea de menor prioridad bloquea el recurso antes que la de prioridad mayor, quedando bloqueada esta última tarea en el momento que precise el uso del recurso compartido. Esto hace que queden invertidas de forma efectiva las prioridades relativas entre ambas ya que la tarea que originalmente tenía mayor prioridad queda supeditada a la tarea de menor prioridad. Como consecuencia, la tarea de mayor prioridad puede no cumplir sus requisitos de tiempo establecidos.
+            <br>
+            El ejemplo más famoso de inversión de prioridades sucedió en la misión Mars Pathfinder.</p>
+        </section>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>
